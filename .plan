@@ -1,4 +1,5 @@
 Inputs
+Inputs must received via http request.
 
 - A git repository.
   Local or remote
@@ -12,15 +13,29 @@ Program Functions
 
 - Parsing any "package management" file.
   package.json, composer.json
+
 - Fetching targeted file from a git repo.
-  Planinng to use "nodegit". A nodejs git implementation.
+  Planinng to use "simple-git". A nodejs git implementation.
+
 - Scheduling repetitive events.
   Cronjob seems like the best way for repetetive events.
   Planning to use "cron" package.
+  It must remember events after restart so i'm planning to write them in a plain text file.(not a priority)
+
 - Communicating with package manager's api.
   npm(nodejs),packagist(php)
+
 - Sending email.
   Planning to use "smtp-client" package
+
+- Hosting a http server.
+  It must listen incoming POST requests to /dependencybot/subscribe
+  Must parse json body and body must include:
+  {
+  git_repo:String (path,ssh or http)
+  emails:String[]
+  }
+  Body must be validated. If body is not valid send 422
 
 ---
 
