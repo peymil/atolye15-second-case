@@ -1,0 +1,29 @@
+Inputs
+
+- A git repository.
+  Local or remote
+
+- Email
+  Program must be able to accept more emails while running.
+
+---
+
+Program Functions
+
+- Parsing any "package management" file.
+  package.json, composer.json
+- Fetching targeted file from a git repo.
+  Planinng to use "nodegit". A nodejs git implementation.
+- Scheduling repetitive events.
+  Cronjob seems like the best way for repetetive events.
+  Planning to use "cron" package.
+- Communicating with package manager's api.
+  npm(nodejs),packagist(php)
+- Sending email.
+  Planning to use "smtp-client" package
+
+---
+
+Program Outputs
+
+- Outdated packages according to remote package management api.
