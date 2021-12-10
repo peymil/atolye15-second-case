@@ -651,6 +651,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.12.tgz#ac7fb693ac587ee182c3780c26eb65546a1a3c10"
   integrity sha512-+2Iggwg7PxoO5Kyhvsq9VarmPbIelXP070HMImEpbtGCoyWNINQj4wzjbQCXzdHTRXnqufutJb5KAURZANNBAw==
 
+"@types/nodemailer@^6.4.4":
+  version "6.4.4"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.4.tgz#c265f7e7a51df587597b3a49a023acaf0c741f4b"
+  integrity sha512-Ksw4t7iliXeYGvIQcSIgWQ5BLuC/mljIEbjf615svhZL10PE9t+ei8O9gDaD3FPCasUJn9KTLwz2JFJyiiyuqw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/prettier@^2.1.5":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.4.2.tgz#4c62fae93eb479660c3bd93f9d24d561597a8281"
@@ -2371,11 +2378,6 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-line-buffer@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/line-buffer/-/line-buffer-0.1.4.tgz#e07de183310b60122fde4b335cf6606543ffb1d3"
-  integrity sha1-4H3hgzELYBIv3kszXPZgZUP/sdM=
-
 locate-path@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-5.0.0.tgz#1afba396afd676a6d42504d0a67a3a7eb9f62aa0"
@@ -2532,6 +2534,11 @@ node-releases@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.1.tgz#3d1d395f204f1f2f29a54358b9fb678765ad2fc5"
   integrity sha512-CqyzN6z7Q6aMeF/ktcMVTzhAHCEpf8SOarwpzpf8pNBY2k5/oM34UHldUwp8VKI7uxct2HxSRdJjBaZeESzcxA==
+
+nodemailer@^6.7.2:
+  version "6.7.2"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.2.tgz#44b2ad5f7ed71b7067f7a21c4fedabaec62b85e0"
+  integrity sha512-Dz7zVwlef4k5R71fdmxwR8Q39fiboGbu3xgswkzGwczUfjp873rVxt1O46+Fh0j1ORnAC6L9+heI8uUpO6DT7Q==
 
 normalize-path@^3.0.0:
   version "3.0.0"
@@ -2707,16 +2714,6 @@ progress@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
-
-promised-timeout@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/promised-timeout/-/promised-timeout-0.5.1.tgz#56bd98eb8c59e594dae85551bc54451cd4584c23"
-  integrity sha1-Vr2Y64xZ5ZTa6FVRvFRFHNRYTCM=
-
-promised-timeout@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/promised-timeout/-/promised-timeout-0.2.0.tgz#45eafcf5ed9457e2e60efa77c2c860d6ef1d816e"
-  integrity sha1-Rer89e2UV+LmDvp3wshg1u8dgW4=
 
 prompts@^2.0.1:
   version "2.4.2"
@@ -2914,22 +2911,6 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
-
-smtp-channel@0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/smtp-channel/-/smtp-channel-0.2.3.tgz#db660868ad3b5296775ec8078c38aa634c4dcda6"
-  integrity sha512-5PR7qW88Z6GcLfvgop6WpUMwNoJKKQY9CP8Gpk5INbSs3UtWqMgFYkTTMaynnbj+6e4D/L0JuagbuH3fjm4+Fw==
-  dependencies:
-    line-buffer "^0.1.4"
-    promised-timeout "^0.2.0"
-
-smtp-client@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/smtp-client/-/smtp-client-0.4.0.tgz#2015da1f4d9821e67bf22ced01568b027d305245"
-  integrity sha512-TvxdX02b96hN6732TGkXcXHsaTeXgVMXjdAhYzz/pLGE6V1p/5jh1XYJa/PfE+O21jHLmwHYWVP3c7JNFWwmOg==
-  dependencies:
-    promised-timeout "0.5.1"
-    smtp-channel "0.2.3"
 
 source-map-support@^0.5.6:
   version "0.5.21"

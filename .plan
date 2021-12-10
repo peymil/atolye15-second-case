@@ -26,7 +26,7 @@ Program Functions
   npm(nodejs),packagist(php)
 
 - Sending email.
-  Planning to use "smtp-client" package
+  Planning to use "node-mailer" package
 
 - Hosting a http server.
   It must listen incoming POST requests to /dependencybot/subscribe
