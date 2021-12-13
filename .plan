@@ -16,6 +16,7 @@ Program Functions
 
 - Fetching targeted file from a git repo.
   Planinng to use "simple-git". A nodejs git implementation.
+  simple-git using filesystem (maybe files can be cloned to /tmp). Will try to find another package or maybe i will just use github's api ಥ_ಥ
 
 - Scheduling repetitive events.
   Cronjob seems like the best way for repetetive events.
@@ -32,10 +33,11 @@ Program Functions
   It must listen incoming POST requests to /dependencybot/subscribe
   Must parse json body and body must include:
   {
-  git_repo:String (path,ssh or http)
+  git_repo:String (path or http)
   emails:String[]
   }
   Body must be validated. If body is not valid send 422
+  Planning to use Express.js because of it's scalability(canceling ) and I don't want to tussle with node http module.
 
 ---
 
