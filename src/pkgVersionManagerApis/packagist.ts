@@ -5,14 +5,13 @@ type packagistRes = {
   status: string;
 };
 
-export const fetchRegistryInfo = async (packageName: string): Promise<packagistRes> => {
+export const getLatestVersion = async (packageName: string) => {
   const res = await fetch(`https://packagist.org/packages/${packageName}.json`);
-  return await res.json();
-};
-export const parseRegistryInfo = (resJson: packagistRes): string | undefined => {
+  const resJson: packagistRes = await res.json();
   if (resJson.status) return undefined;
   const versions = resJson.versions;
   if (!versions) return undefined;
-  const keys = Object.keys(versions);
-  return keys[keys.length - 1];
+  const versionList = Object.keys(versions);
+  //packagist sorting versions in descending order
+  return versionList[0];
 };

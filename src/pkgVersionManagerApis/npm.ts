@@ -5,14 +5,12 @@ type npmRes = {
   error: string;
 };
 
-export const fetchRegistryInfo = async (packageName: string): Promise<npmRes> => {
+export const getLatestVersion = async (packageName: string) => {
   const res = await fetch('https://registry.npmjs.org/' + packageName);
-  return await res.json();
-};
-export const parseRegistryInfo = (resJson: npmRes): string | undefined => {
+  const resJson: npmRes = await res.json();
   if (resJson.error) return undefined;
   const versions = resJson.versions;
   if (!versions) return undefined;
-  const keys = Object.keys(versions);
-  return keys[keys.length - 1];
+  const versionList = Object.keys(versions);
+  return versionList[versionList.length - 1];
 };
