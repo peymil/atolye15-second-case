@@ -1,4 +1,4 @@
-import pkgParsers from '../../src/pkgParsers';
+import pkgParsers from './packageParser';
 
 test('should parse package.json', () => {
   const stringifiedPackageJson = `{
