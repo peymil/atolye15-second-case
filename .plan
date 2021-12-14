@@ -44,3 +44,7 @@ Program Functions
 Program Outputs
 
 - Outdated packages according to remote package management api.
+
+Caching updated package with last commit SHA can save a lot of time and resource.There is no need to do anything other than returning the previous value if previous SHA and current SHA is the same.
+
+Caching git server api could save some resource.
