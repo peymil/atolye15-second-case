@@ -6,7 +6,11 @@ class MailSubscriberStore {
     const currentSubscribers = this.subscribers.get(repoName);
     if (!currentSubscribers) this.subscribers.set(repoName, [subscriberToPush]);
     else currentSubscribers.push(subscriberToPush);
-  }
+  },
+  // getSubscriber(repoName: string, email: string) {
+  //   const repoSubscribers =  this.subscribers.get(repoName);
+  //   if(repoSubscribers) return repoSubscribers.includes({email})
+  // }
   removeSubscriber(repoName: string, email: string) {
     const currentSubscribers = this.subscribers.get(repoName);
     if (currentSubscribers) throw new Error('Subscription not found');
