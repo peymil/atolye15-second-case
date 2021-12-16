@@ -1,15 +1,12 @@
-import createEmailClient from './email/emailClient';
-import generateNewMailJob from './email/generateMailJob';
 import { identifyAdress } from './gitProviderIdentifier/identifyAdress';
-import gitServerApis from './gitServerApis';
+import gitProviderApis from './gitProviderApis';
 import pkgManagerIdentifiers, { pkgManagerBase } from './pkgManagerIdentifiers';
 import pkgParsers from './pkgParser/packageParser';
 import pkgVersionManagerApis from './pkgVersionManagerApis';
-import deleteOtherThanVersionNumber from './utils/deleteOtherThanVersionNumber';
 
 export default async (repoAdress: string) => {
   const { provider: gitProvider, repoName } = identifyAdress(repoAdress);
-  const gitServerApi = gitServerApis.get(gitProvider);
+  const gitServerApi = gitProviderApis.get(gitProvider);
   if (!gitServerApi) throw '';
   let pkgManagerInfo: pkgManagerBase | undefined;
   let file: string | undefined;

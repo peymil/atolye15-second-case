@@ -1,5 +1,5 @@
 import express from 'express';
-import beautifyDependencyArray from './beautifyDependenyArray';
+import beautifyDependencyArray from './beautifyDependencyArray';
 import { generateCronStringFor24HoursLater } from './cronHelpers';
 import createEmailClient from './email/emailClient';
 import generateNewMailJob from './email/generateMailJob';
@@ -22,7 +22,6 @@ export const createServer = () => {
     const mailBody = beautifyDependencyArray(latestVersions);
     const emailClient = await createEmailClient();
     const cronString = generateCronStringFor24HoursLater(new Date());
-    console.log('cronString', cronString);
     const mailJob = await generateNewMailJob(cronString, mailBody, 'deneme', email, emailClient);
     mailJob.start();
     res.send(mailBody);
