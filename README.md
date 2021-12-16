@@ -24,3 +24,5 @@ Devdependencies and dependencies treated as one.
 Some tests are not finished.
 
 Currently working with package.json and composer.json and as git provider it supports Github and local files.
+
+Project giving linting errors when i used atolye15's eslint rules. I'm going to fix them when i have time.

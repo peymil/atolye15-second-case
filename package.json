@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "eslint 'src/**/*.ts'",
+    "lint": "yarn lint:tsc && yarn lint:eslint"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +20,16 @@
     "@types/node-fetch": "2",
     "@types/nodemailer": "^6.4.4",
     "@types/sqlite3": "^3.1.7",
-    "eslint": "^8.4.1",
+    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/parser": "^3.5.0",
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb-typescript": "^8.0.2",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.17.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "jest": "^27.4.3",
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.1",
@@ -32,6 +44,7 @@
     "node-fetch": "2",
     "nodemailer": "^6.7.2",
     "simple-git": "^2.48.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "sqllite": "^1.1.2"
   }
 }

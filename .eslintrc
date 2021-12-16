@@ -4,19 +4,19 @@
     "project": "./tsconfig.json"
   },
   "extends": [
+    "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended",
     "prettier",
     "prettier/@typescript-eslint",
-    "plugin:jest/all"
+    "plugin:jest/all",
+    "plugin:eslint-comments/recommended"
   ],
-  "plugins": [
-    "jest",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "eslint-comments"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "eslint-comments/no-unused-disable": "error",
+    "@typescript-eslint/ban-ts-comment": "warn"
   }
 }
