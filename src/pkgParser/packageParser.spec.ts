@@ -31,22 +31,18 @@ test('should parse package.json', () => {
         }
       }`;
   const result = {
-    devDeps: {
-      '@types/jest': '^27.0.3',
-      eslint: '^8.4.1',
-      jest: '^27.4.3',
-      prettier: '^2.5.1',
-      'ts-jest': '^27.1.1',
-      'ts-node': '^10.4.0',
-      typescript: '^4.5.2',
-    },
-    deps: {
-      cron: '^1.8.2',
-      dotenv: '^10.0.0',
-      express: '^4.17.1',
-      'simple-git': '^2.48.0',
-      'smtp-client': '^0.4.0',
-    },
+    '@types/jest': '^27.0.3',
+    eslint: '^8.4.1',
+    jest: '^27.4.3',
+    prettier: '^2.5.1',
+    'ts-jest': '^27.1.1',
+    'ts-node': '^10.4.0',
+    typescript: '^4.5.2',
+    cron: '^1.8.2',
+    dotenv: '^10.0.0',
+    express: '^4.17.1',
+    'simple-git': '^2.48.0',
+    'smtp-client': '^0.4.0',
   };
   const parsedPackageJson = pkgParsers('node', stringifiedPackageJson);
   expect(result).toStrictEqual(parsedPackageJson);
@@ -78,12 +74,8 @@ test('should parse composer.json', () => {
     }
 }`;
   const result = {
-    deps: {
-      php: '>=7.2',
-    },
-    devDeps: {
-      'phpunit/phpunit': '~8.0',
-    },
+    php: '>=7.2',
+    'phpunit/phpunit': '~8.0',
   };
   const parsedComposerJson = pkgParsers('php', stringifiedComposerJson);
   expect(result).toStrictEqual(parsedComposerJson);

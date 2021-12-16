@@ -6,10 +6,7 @@ import php from './pkgParserConfs/php';
 //   devDependency: string[];
 //   dependency: string[];
 // };
-export type NonUpdatedDepsObj = {
-  deps: { [key: string]: string };
-  devDeps?: { [key: string]: string };
-};
+export type NonUpdatedDepsObj = { [key: string]: string };
 
 type pkgParserBase = {
   dependencyKey: string;
@@ -36,8 +33,8 @@ const packageParser = (pkgProvider: string, text: string): NonUpdatedDepsObj => 
   // We are parsing text to json (it can be toml,json)
   const pkgFileObj = fileParser(text);
   return {
-    deps: pkgFileObj[dependencyKey],
-    devDeps: pkgFileObj[devDependencyKey],
+    ...pkgFileObj[dependencyKey],
+    ...pkgFileObj[devDependencyKey],
   };
 };
 export default packageParser;
