@@ -19,6 +19,8 @@ Subscriber storage written but not implemented. (cronjobs ,email,repo name)
 
 Repo storage written but not implemented. (updateables in previous run,email,repo name)
 
+Requests will be much faster with repo storage as it caches previously parsed program outputs. (no need to communicate with package manager api)
+
 Devdependencies and dependencies treated as one.
 
 Some tests are not finished.
