@@ -6,7 +6,8 @@ export const identifyAdress = (adress: string) => {
   for (const [provider, conf] of Object.entries(confs)) {
     const regex = new RegExp(conf.httpRegex);
     const matches = adress.match(regex);
-    if (matches === null) break;
+
+    if (matches === null) continue;
     const repoName = matches[1];
     return { provider, repoName };
   }

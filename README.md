@@ -10,11 +10,16 @@ A bot for parsing incoming github repos and returning updateable dependencies of
 "email":"emrebadem@mail.com"
 "git_repo":"https://github.com/peymil/atolye15-task"
 ```
+
+## Notes
+
 If a repo has more than 1 package file, program only outputs whichever it finds first.
 
 Subscriber storage written but not implemented. (cronjobs ,email,repo name)
 
 Repo storage written but not implemented. (updateables in previous run,email,repo name)
+
+Devdependencies and dependencies treated as one.
 
 Some tests are not finished.
 

@@ -1,0 +1,3 @@
+We are defining parser configuration for each programming language in conf.
+packageParser parsing defined key from file.
+fileParsers parsing different file types (json,toml,yaml etc.)

@@ -1,4 +1,6 @@
+// @ts-nocheck
 // not used for now
+// this is a global file parser that uses git natively.
 import simpleGit, { GitError, SimpleGit } from 'simple-git';
 import fs from 'fs';
 import util from 'util';
@@ -30,7 +32,6 @@ class GitRepoContainer {
     this.repos.delete(HeadSHA);
   }
   deleteContainer() {
-    console.log(this.git);
   }
   /**
    * Gets directory information of repo
@@ -47,7 +48,6 @@ class GitRepoContainer {
     const config = await this.git.getConfig("remote.origin.url");
     config.value
     if (isFileAlreadyCloned) {
-      console.log('hellow');
     }
   }
 }

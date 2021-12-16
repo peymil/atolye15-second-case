@@ -1,3 +1,3 @@
 export default {
-  httpRegex: 'file://(.*)',
+  httpRegex: /file:\/\/([\s\S]+)/,
 };

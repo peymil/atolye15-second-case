@@ -1,0 +1,1 @@
+Git server(provider)'s API's. Each file must return a file fetcher and a sha fetcher.
