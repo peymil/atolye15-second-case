@@ -1,7 +1,6 @@
 //@ts-nocheck
 // import { Database } from 'sqlite3';
-
-// Needs a proper database.
+// This is a subscriber store to handle cronjobs and subscribers.
 class MailSubscriberStore {
   private db: Database;
   private tableName: string;

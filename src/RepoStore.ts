@@ -1,7 +1,7 @@
 //@ts-nocheck
 // import { Database } from 'sqlite3';
 
-// Needs a proper database.
+// This is a repo store to cache previously parsed updateable dependencies.
 class RepoStore {
   private db: Database;
   private tableName: string;
