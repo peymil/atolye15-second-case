@@ -31,8 +31,7 @@ class GitRepoContainer {
     rmdirPromise(rmdirPromise);
     this.repos.delete(HeadSHA);
   }
-  deleteContainer() {
-  }
+  deleteContainer() {}
   /**
    * Gets directory information of repo
    * @param gitRepo Local repo like file:////home/user/gitRepo or any remote adress.
@@ -44,9 +43,9 @@ class GitRepoContainer {
         isFileAlreadyCloned = true;
       }
     });
-    cloned.
-    const config = await this.git.getConfig("remote.origin.url");
-    config.value
+    // cloned.
+    const config = await this.git.getConfig('remote.origin.url');
+    config.value;
     if (isFileAlreadyCloned) {
     }
   }
@@ -58,4 +57,4 @@ const createTmpFolder = async (folderLoc: string) => {
 };
 const c = new GitRepoContainer('/tmp/gitDependencyBot/31', simpleGit('/tmp/gitDependencyBot/31'));
 c.deleteContainer();
-export default GitRepoContainer
+export default GitRepoContainer;

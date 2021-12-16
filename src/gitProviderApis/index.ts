@@ -1,6 +1,6 @@
 import * as github from './github';
 import * as local from './local';
-type gitServerApiBase = {
+export type gitServerApiBase = {
   searchForFile: (repoName: string, fileName: string) => Promise<string | undefined>;
   getLatestCommitSha: (packageName: string) => Promise<string | undefined>;
 };

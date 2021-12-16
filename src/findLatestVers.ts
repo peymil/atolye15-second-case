@@ -1,13 +1,10 @@
 import { identifyAdress } from './gitProviderIdentifier/identifyAdress';
-import gitProviderApis from './gitProviderApis';
 import pkgManagerIdentifiers, { pkgManagerBase } from './pkgManagerIdentifiers';
 import pkgParsers from './pkgParser/packageParser';
 import pkgVersionManagerApis from './pkgVersionManagerApis';
+import { gitServerApiBase } from './gitProviderApis';
 
-export default async (repoAdress: string) => {
-  const { provider: gitProvider, repoName } = identifyAdress(repoAdress);
-  const gitServerApi = gitProviderApis.get(gitProvider);
-  if (!gitServerApi) throw '';
+export default async (gitServerApi: gitServerApiBase, repoName: string) => {
   let pkgManagerInfo: pkgManagerBase | undefined;
   let file: string | undefined;
   for (const pkgManagerIdentifier of pkgManagerIdentifiers) {
@@ -22,9 +19,16 @@ export default async (repoAdress: string) => {
   const dependencies = pkgParsers(pkgManagerInfo.language, file);
   const pkgVersionManagerApi = pkgVersionManagerApis.get(pkgManagerInfo.pkgManagers[0]);
   if (!pkgVersionManagerApi) throw new Error('Pkg version manager is not identified');
-  //
   const updateableDependencies: { pkgName: string; oldVersion: string; newVersion: string }[] = [];
-
+  // This is giving ECONNRESET in large dependency lists. I think it is because i'm sending 100 requests per second :)
+  // const dependenciesAndNewVersionsPromises = Object.entries(dependencies).map(([name, version]) => {
+  //   return new Promise<{ pkgName: string; oldVersion: string; newVersion: string | undefined }>((resolve, reject) => {
+  //     pkgVersionManagerApi.getLatestVersion(name).then((newVersion) => {
+  //       resolve({ pkgName: name, oldVersion: version, newVersion });
+  //     });
+  //   });
+  // });
+  // await Promise.all(dependenciesAndNewVersionsPromises)
   for (const [name, version] of Object.entries(dependencies)) {
     const newVersion = await pkgVersionManagerApi.getLatestVersion(name);
     if (newVersion && newVersion !== version) {
