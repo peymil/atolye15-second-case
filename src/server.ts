@@ -3,7 +3,7 @@ import beautifyDependencyArray from './beautifyDependenyArray';
 import { generateCronStringFor24HoursLater } from './cronHelpers';
 import createEmailClient from './email/emailClient';
 import generateNewMailJob from './email/generateMailJob';
-import findLatestVersions from './findLatestVersAndCommit';
+import findLatestVersions from './findLatestVers';
 // import sqlite3 from 'sqlite3';
 // import MailSubscriberStore from './MailSubscriberStore';
 // import GitRepoStore from './RepoStore';

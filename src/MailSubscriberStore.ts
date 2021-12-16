@@ -1,19 +1,23 @@
+//@ts-nocheck
+// import { Database } from 'sqlite3';
+
 // Needs a proper database.
 class MailSubscriberStore {
-  private subscribers = new Map<string, { email: string; subscribed_at: Date }[]>();
-  addSubscriber(repoName: string, email: string, cron: unknown) {
-    const subscriberToPush = { email, subscribed_at: new Date() };
-    const currentSubscribers = this.subscribers.get(repoName);
-    if (!currentSubscribers) this.subscribers.set(repoName, [subscriberToPush]);
-    else currentSubscribers.push(subscriberToPush);
-  },
-  // getSubscriber(repoName: string, email: string) {
-  //   const repoSubscribers =  this.subscribers.get(repoName);
-  //   if(repoSubscribers) return repoSubscribers.includes({email})
-  // }
+  private db: Database;
+  private tableName: string;
+  constructor(sqllitedb: Database, tableName = 'subscribers') {
+    this.db = sqllitedb;
+    this.tableName = tableName;
+    this.db.run('');
+  }
+  addSubscriber(repoName: string, email: string) {
+    this.db.run(`INSERT INTO ${this.tableName} (EMAIL, REPONAME) VALUES ('${email}','${repoName}')`);
+  }
   removeSubscriber(repoName: string, email: string) {
-    const currentSubscribers = this.subscribers.get(repoName);
-    if (currentSubscribers) throw new Error('Subscription not found');
+    this.db.run(`DELETE FROM ${this.tableName} WHERE EMAIL='${email}' AND REPONAME='${repoName}'`);
+  }
+  findSubscriber(repoName: string, email: string) {
+    this.db.run(`SELECT FROM ${this.tableName} WHERE EMAIL='${email}' AND REPONAME='${repoName}'`);
   }
 }
 export default MailSubscriberStore;
