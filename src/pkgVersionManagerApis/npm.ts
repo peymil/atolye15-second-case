@@ -1,18 +1,20 @@
 import fetch from 'node-fetch';
-//Only versions property are implemented
-type npmErr = {
+// Only versions property are implemented
+type NpmErr = {
   error: string;
 };
-type npmFileRes = {
+type NpmFileRes = {
   versions: { [key: string]: string }[];
 };
 
-export const getLatestVersion = async (packageName: string) => {
-  const res = await fetch('https://registry.npmjs.org/' + packageName);
-  const resJson: npmFileRes & npmErr = await res.json();
-  if (resJson.error) return undefined;
-  const versions = resJson.versions;
-  if (!versions) return undefined;
-  const versionList = Object.keys(versions);
-  return versionList[versionList.length - 1];
+export default {
+  getLatestVersion: async (packageName: string): Promise<string | undefined> => {
+    const res = await fetch(`https://registry.npmjs.org/${packageName}`);
+    const resJson = (await res.json()) as NpmFileRes & NpmErr;
+    if (resJson.error) return undefined;
+    const { versions } = resJson;
+    if (!versions) return undefined;
+    const versionList = Object.keys(versions);
+    return versionList[versionList.length - 1];
+  },
 };

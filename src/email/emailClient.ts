@@ -1,12 +1,12 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { Transporter } from 'nodemailer';
 
-const createEmailClient = async () => {
+const createEmailClient = async (): Promise<Transporter> => {
   const { SMTP_EMAIL: user, SMTP_PASSWORD: pass } = process.env;
-  let account = user ? { user, pass } : await nodemailer.createTestAccount();
+  const account = user ? { user, pass } : await nodemailer.createTestAccount();
 
   const port = process.env.SMTP_PORT;
-  let transporter = nodemailer.createTransport({
-    port: port ? parseInt(port) : 587,
+  const transporter = nodemailer.createTransport({
+    port: port ? parseInt(port, 10) : 587,
     secure: false,
     auth: account,
     host: process?.env?.SMTP_EMAIL || 'smtp.ethereal.email',

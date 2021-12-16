@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
-import { createServer } from './server';
+import createServer from './server';
+
 dotenv.config();
 createServer();

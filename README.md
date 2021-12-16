@@ -8,7 +8,7 @@ A bot for parsing incoming github repos and returning updateable dependencies of
 
 ```json
 "email":"emrebadem@mail.com"
-"git_repo":"https://github.com/peymil/atolye15-task"
+"gitRepo":"https://github.com/peymil/atolye15-task"
 ```
 
 ## Notes

@@ -1,17 +1,18 @@
 import fetch from 'node-fetch';
-//Only versions property are implemented
-type packagistRes = {
+// Only versions property are implemented
+type PackagistRes = {
   versions: { [key: string]: string }[];
   status: string;
 };
-
-export const getLatestVersion = async (packageName: string) => {
-  const res = await fetch(`https://packagist.org/packages/${packageName}.json`);
-  const resJson: packagistRes = await res.json();
-  if (resJson.status) return undefined;
-  const versions = resJson.versions;
-  if (!versions) return undefined;
-  const versionList = Object.keys(versions);
-  //packagist sorting versions in descending order
-  return versionList[0];
+export default {
+  getLatestVersion: async (packageName: string): Promise<string | undefined> => {
+    const res = await fetch(`https://packagist.org/packages/${packageName}.json`);
+    const resJson = (await res.json()) as PackagistRes;
+    if (resJson.status) return undefined;
+    const { versions } = resJson;
+    if (!versions) return undefined;
+    const versionList = Object.keys(versions);
+    // packagist sorting versions in descending order
+    return versionList[0];
+  },
 };

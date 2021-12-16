@@ -1,4 +1,6 @@
-export default (oldAndNewVersions: { pkgName: string; oldVersion: string; newVersion: string }[]) => {
+import { UpdateableDependencies } from './findLatestVers';
+
+export default (oldAndNewVersions: UpdateableDependencies): string => {
   const templateArr = oldAndNewVersions.map(
     ({ newVersion, oldVersion, pkgName }) => `${pkgName}: ${oldVersion} ---> ${newVersion}`,
   );

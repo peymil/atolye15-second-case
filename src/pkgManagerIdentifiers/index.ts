@@ -1,8 +1,8 @@
 import node from './identifierConfs/node';
 import php from './identifierConfs/php';
 
-export type pkgManagerBase = { language: string; pkgManagers: string[]; pkgManagerFiles: string[] };
+export type PkgManagerBase = { language: string; pkgManagers: string[]; pkgManagerFiles: string[] };
 
-const pkgManagerConfs: pkgManagerBase[] = [node, php];
+const pkgManagerConfs: PkgManagerBase[] = [node, php];
 
 export default pkgManagerConfs;

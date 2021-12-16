@@ -1,4 +1,4 @@
-import { FileTypes } from '../constants/fileTypes';
+import FileTypes from '../constants/fileTypes';
 
 export default {
   dependencyKey: 'require',

@@ -1,5 +1,6 @@
-import fetch, { RequestInfo, RequestInit } from 'node-fetch';
+import fetch from 'node-fetch';
 import * as github from './github';
+
 const failedMock = {
   message: 'NOT FOUND',
 };
@@ -42,29 +43,29 @@ const mockData = {
     'simple-git': '^2.48.0',
   },
 };
-//@ts-ignore
-
-const generateFetchMock = (shouldSucced: boolean) => async (url: RequestInfo, init?: RequestInit) => {
+const generateFetchMock = (shouldSucced: boolean) => () => {
   return {
-    json: async () => {
+    json: () => {
       if (shouldSucced) return mockDataBase64;
       return failedMock;
     },
   };
 };
+describe('github api testes', () => {
+  it('should fetch base64 file from github and parse it to utf8', async () => {
+    expect.assertions(1);
+    // @ts-ignore
+    fetch = generateFetchMock(true);
+    // @ts-ignore
+    const text = await github.searchForFile('repo/name', 'package.json');
+    expect(JSON.parse(text as string)).toStrictEqual(mockData);
+  });
+  it('if there is not file it must return undefined', async () => {
+    expect.assertions(1);
+    // @ts-ignore
+    fetch = generateFetchMock(false);
+    const text = await github.searchForFile('repo/name', 'package.json');
 
-test('should fetch base64 file from github and parse it to utf8', async () => {
-  //@ts-ignore
-  fetch = generateFetchMock(true);
-  //@ts-ignore
-  const text = await github.searchForFile('repo/name', 'package.json');
-
-  expect(JSON.parse(text as string)).toStrictEqual(mockData);
-});
-test('if there is not file it must return undefined', async () => {
-  //@ts-ignore
-  fetch = generateFetchMock(false);
-  const text = await github.searchForFile('repo/name', 'package.json');
-
-  expect(text).toStrictEqual(undefined);
+    expect(text).toBeUndefined();
+  });
 });
