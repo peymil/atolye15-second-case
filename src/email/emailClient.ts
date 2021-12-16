@@ -6,14 +6,12 @@ const createEmailClient = async () => {
 
   const port = process.env.SMTP_PORT;
   let transporter = nodemailer.createTransport({
-    port: port ? parseInt(port) : 22,
+    port: port ? parseInt(port) : 587,
     secure: false,
     auth: account,
-    tls: {
-      rejectUnauthorized: false,
-    },
     host: process?.env?.SMTP_EMAIL || 'smtp.ethereal.email',
   });
+
   return transporter;
 };
 export default createEmailClient;
