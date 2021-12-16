@@ -1,4 +1,4 @@
-import local from './local';
+import * as local from './local';
 import fs from 'fs/promises';
 test('Should find git repo in filesystem and return dpendencies', async () => {
   const mockData = {

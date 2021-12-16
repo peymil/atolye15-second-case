@@ -1,5 +1,5 @@
 import fetch, { RequestInfo, RequestInit } from 'node-fetch';
-import github from './github';
+import * as github from './github';
 const failedMock = {
   message: 'NOT FOUND',
 };
