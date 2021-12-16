@@ -7,7 +7,7 @@ import pkgParsers from './pkgParser/packageParser';
 import pkgVersionManagerApis from './pkgVersionManagerApis';
 import deleteOtherThanVersionNumber from './utils/deleteOtherThanVersionNumber';
 
-export default async (repoAdress: string, email: string) => {
+export default async (repoAdress: string) => {
   const { provider: gitProvider, repoName } = identifyAdress(repoAdress);
   const gitServerApi = gitServerApis.get(gitProvider);
   if (!gitServerApi) throw '';

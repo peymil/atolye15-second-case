@@ -18,7 +18,7 @@ export const createServer = () => {
   app.post('/dependencybot/subscribe', async (req, res) => {
     const { email, git_repo } = req.body;
     if (!email || !git_repo) res.send('No Body');
-    const latestVersions = await findLatestVersions(git_repo, email);
+    const latestVersions = await findLatestVersions(git_repo);
     const mailBody = beautifyDependencyArray(latestVersions);
     const emailClient = await createEmailClient();
     const cronString = generateCronStringFor24HoursLater(new Date());
