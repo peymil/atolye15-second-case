@@ -13,13 +13,11 @@ A bot for parsing incoming github repos and returning updateable dependencies of
 
 ## Notes
 
+Only works on main branch (i'm having issues on getLatestCommitSha under gitProviderApis)
+
 If a repo has more than 1 package file, program only outputs whichever it finds first.
 
 Subscriber storage written but not implemented. (cronjobs ,email,repo name)
-
-Repo storage written but not implemented. (updateables in previous run,email,repo name)
-
-Requests will be much faster with repo storage as it caches previously parsed program outputs. (no need to communicate with package manager api)
 
 Devdependencies and dependencies treated as one.
 

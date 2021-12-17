@@ -9,7 +9,8 @@
     "test": "jest",
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint 'src/**/*.ts'",
-    "lint": "yarn lint:tsc && yarn lint:eslint"
+    "lint": "yarn lint:tsc && yarn lint:eslint",
+    "lint:fix": "eslint 'src/**/*.ts' --fix"
   },
   "author": "",
   "license": "ISC",
@@ -41,6 +42,7 @@
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "knex": "^0.95.14",
     "node-fetch": "2",
     "nodemailer": "^6.7.2",
     "simple-git": "^2.48.0",

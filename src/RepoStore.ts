@@ -1,49 +1,58 @@
-//@ts-nocheck
-// import { Database } from 'sqlite3';
+// Caches repo's updateable dependencies.
+import { Knex } from 'knex';
 
-import { Database } from 'sqlite3';
-
+type RepoInterface = {
+  LASTCOMMITSHA: string;
+  REPONAME: string;
+  UPDATEDPACKAGES: string;
+};
 // This is a repo store to cache previously parsed updateable dependencies.
 class RepoStore {
-  private db: Database;
+  private db: Knex;
+
   private tableName: string;
-  constructor(sqllitedb: Database, tableName = 'inspectedRepos') {
+
+  constructor(sqllitedb: Knex, tableName = 'inspectedRepos') {
     this.db = sqllitedb;
     this.tableName = tableName;
   }
-  getRepo(repoName: string) {
-    this.db.run(`SELECT FROM ${this.tableName} WHERE REPONAME='${repoName}'`, (err, row) => {
-      console.log('row', row);
+
+  async getRepo(repoName: string): Promise<RepoInterface | undefined> {
+    const repo = await this.db(this.tableName).select<RepoInterface[]>().where('REPONAME', repoName);
+    return repo[0];
+  }
+
+  async updateRepo(repoName: string, newSHA: string, updatedPackages: string) {
+    const results = await this.db(this.tableName)
+      .update({ LASTCOMMITSHA: newSHA, UPDATEDPACKAGES: updatedPackages })
+      .where('REPONAME', repoName);
+    return results;
+  }
+
+  async addRepo(repoName: string, commitSHA: string, updatedPackages: string) {
+    const results = await this.db(this.tableName).insert({
+      LASTCOMMITSHA: commitSHA,
+      REPONAME: repoName,
+      UPDATEDPACKAGES: updatedPackages,
     });
+    return results;
   }
-  updateRepo(repoName: string, newSHA: string, updatedPackages: string) {
-    this.db.run(
-      `UPDATE ${this.tableName} SET LASTCOMMITSHA='${newSHA}',UPDATEDPACKAGES='${updatedPackages}'  WHERE AND REPONAME='${repoName}'`,
-      (err, row) => {
-        console.log('row', row);
-      },
-    );
-  }
-  addRepo(repoName: string, commitSHA: string, updatedPackages: string) {
-    this.db.run(
-      `INSERT INTO ${this.tableName} (LASTCOMMITSHA,REPONAME,UPDATEDPACKAGES) VALUES ('${commitSHA}','${repoName}','${updatedPackages}')`,
-      (err, row) => {
-        console.log('row', row);
-      },
-    );
-  }
-  deleteRepo(repoName: string) {
-    this.db.run(`DELETE FROM ${this.tableName} WHERE REPONAME='${repoName}'`, (err, row) => {
-      console.log('row', row);
-    });
+
+  async deleteRepo(repoName: string) {
+    const results = await this.db(this.tableName).delete().where('REPONAME', repoName);
+    return results;
   }
 }
-export const RepoStoreFactory = async (sqllitedb: Database, tableName = 'inspectedRepos') => {
-  sqllitedb.run(
-    `CREATE TABLE IF NOT EXISTS tableName (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE  ,UPDATEDPACKAGES TEXT NOT NULL ,LASTCOMMITSHA varchar(255) NOT NULL )`,
-    (err, res) => {
-      console.log('err', err);
-    },
-  );
+export default async (sqllitedb: Knex, tableName = 'inspectedRepos'): Promise<RepoStore> => {
+  const isTableExists = await sqllitedb.schema.hasTable(tableName);
+  if (!isTableExists) {
+    await sqllitedb.schema.createTable(tableName, (table) => {
+      table.increments('ID');
+      table.string('LASTCOMMITSHA');
+      table.string('REPONAME');
+      table.string('UPDATEDPACKAGES');
+    });
+  }
+
   return new RepoStore(sqllitedb, tableName);
 };

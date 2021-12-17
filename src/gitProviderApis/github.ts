@@ -22,8 +22,10 @@ export const searchForFile = async (repoName: string, fileName: string): Promise
 };
 
 export const getLatestCommitSha = async (packageName: string): Promise<string | undefined> => {
-  const res = await fetch(`https://api.github.com/repos/${packageName}git/refs/heads/main`);
+  const res = await fetch(`https://api.github.com/repos/${packageName}/git/refs/heads/main`);
   const resJson = (await res.json()) as GithubCommitRes & NpmErr;
-  if (resJson.message) return undefined;
+  if (resJson.message) {
+    return undefined;
+  }
   return resJson.object.sha;
 };

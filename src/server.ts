@@ -1,3 +1,4 @@
+import knex from 'knex';
 import express from 'express';
 import beautifyDependencyArray from './beautifyDependencyArray';
 import generateCronStringFor24HoursLater from './cronHelpers';
@@ -9,13 +10,19 @@ import gitProviderApis from './gitProviderApis';
 
 // import sqlite3 from 'sqlite3';
 // import MailSubscriberStore from './MailSubscriberStore';
-// import GitRepoStore from './RepoStore';
+import RepoStoreFactory from './RepoStore';
 
-// const sqlite = sqlite3.verbose();
-// const db = new sqlite.Database('./database');
-// const SubscriberStore = new MailSubscriberStore(db);
-// const RepoStore = new GitRepoStore(db);
-export default (): void => {
+const db = knex({
+  client: 'sqlite3',
+  useNullAsDefault: true,
+  connection: {
+    filename: './data.db',
+  },
+});
+export default async (): Promise<void> => {
+  const RepoStore = await RepoStoreFactory(db);
+  const emailClient = await createEmailClient();
+
   const app = express();
   app.use(express.json());
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -26,17 +33,26 @@ export default (): void => {
       const { provider: gitProvider, repoName } = identifyAdress(gitRepo);
       const gitProviderApi = gitProviderApis.get(gitProvider);
       if (!gitProviderApi) throw new Error('Git Provider Not Found');
-      // const latestSHA = await gitProviderApi.getLatestCommitSha(repoName);
-      const latestVersions = await findLatestVersions(gitProviderApi, repoName);
-      const mailBody = beautifyDependencyArray(latestVersions);
-      const emailClient = await createEmailClient();
-      const cronString = generateCronStringFor24HoursLater(new Date());
-      const mailJob = generateNewMailJob(cronString, mailBody, 'deneme', email, emailClient);
-      mailJob.start();
-      res.send(mailBody);
-      res.end();
+      const latestSHA = await gitProviderApi.getLatestCommitSha(repoName);
+      // I'm not sure about that error
+      if (!latestSHA) throw new Error('Cannot find latest sha');
+      const data = await RepoStore.getRepo(repoName);
+      const cachedMailBody = data?.UPDATEDPACKAGES;
+      if (cachedMailBody && data.LASTCOMMITSHA === latestSHA) {
+        const cronString = generateCronStringFor24HoursLater(new Date());
+        const mailJob = generateNewMailJob(cronString, cachedMailBody, 'deneme', email, emailClient);
+        res.send(cachedMailBody);
+      } else {
+        const latestVersions = await findLatestVersions(gitProviderApi, repoName);
+        const mailBody = beautifyDependencyArray(latestVersions);
+        const cronString = generateCronStringFor24HoursLater(new Date());
+        const mailJob = generateNewMailJob(cronString, mailBody, 'deneme', email, emailClient);
+        await RepoStore.addRepo(repoName, latestSHA, mailBody);
+        res.send(mailBody);
+      }
     } catch (err) {
       if (err instanceof Error) res.send(err.message);
     }
   });
+  app.listen(4000);
 };

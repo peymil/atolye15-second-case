@@ -8,10 +8,15 @@ const generateNewMailJob = (
   sendTo: string,
   emailClient: Transporter,
 ): CronJob => {
-  return new CronJob(cronExpression, () => {
-    emailClient.sendMail({ text: mailText, to: sendTo, subject: mailTitle }).catch(() => {
-      console.error(`failed to send mail to ${sendTo}`);
-    });
-  });
+  return new CronJob(
+    cronExpression,
+    () => {
+      emailClient.sendMail({ text: mailText, to: sendTo, subject: mailTitle }).catch(() => {
+        console.error(`failed to send mail to ${sendTo}`);
+      });
+    },
+    undefined,
+    true,
+  );
 };
 export default generateNewMailJob;
