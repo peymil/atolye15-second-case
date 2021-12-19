@@ -32,7 +32,7 @@ const packageParser = (pkgProvider: string, text: string): NonUpdatedDepsObj => 
   const fileParser = fileParsers[fileType];
 
   // We are parsing text to json (it can be toml,json)
-  const pkgFileObj = fileParser(text);
+  const pkgFileObj = fileParser(text) as { [key: string]: { [key: string]: string } };
   return {
     ...pkgFileObj[dependencyKey],
     ...pkgFileObj[devDependencyKey],
