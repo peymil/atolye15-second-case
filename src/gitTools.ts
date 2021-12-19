@@ -1,6 +1,6 @@
 // // @ts-nocheck
 // // not used for now
-// // this is a global file parser that uses git natively.
+// // this is a global file parser that uses git natively. I made this to don't write gitProviderApis but later i gave up and wrote them
 // import simpleGit, { GitError, SimpleGit } from 'simple-git';
 // import fs from 'fs';
 // import util from 'util';

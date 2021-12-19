@@ -7,8 +7,10 @@ A bot for parsing incoming github repos and returning updateable dependencies of
 **Data example**
 
 ```json
+{
 "email":"emrebadem@mail.com"
 "gitRepo":"https://github.com/peymil/atolye15-task"
+}
 ```
 
 ## Notes
@@ -21,8 +23,8 @@ Subscriber storage written but not implemented. (cronjobs ,email,repo name)
 
 Devdependencies and dependencies treated as one.
 
-Some tests are not finished.
+Some tests are not finished. (Mocking remote apis hard and the data coming from remote apis are changing (new version numbers). Needs complicated tests and i don't want to build it for a interview task.)
+
+Eslint plugins outdated (I used plugins from previous task.)
 
 Currently working with package.json and composer.json and as git provider it supports Github and local files.
-
-Project giving linting errors when i used atolye15's eslint rules. I'm going to fix them when i have time.
