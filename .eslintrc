@@ -20,6 +20,7 @@
     "eslint-comments/no-unused-disable": "error",
     "@typescript-eslint/ban-ts-comment": "warn",
     // I know scheduling every promise in event loop and awaiting them later is better but i need to send requests to apis one by one. If i send a lot of requests in a short time server returning ECONNREFUSED.
-    "no-await-in-loop": "off"
+    "no-await-in-loop": "off",
+    "jest/no-hooks": "off"
   }
 }
