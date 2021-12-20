@@ -4,13 +4,31 @@ A bot for parsing incoming github repos and returning updateable dependencies of
 
 `POST /dependencybot/subscribe`
 
-**Data example**
+**Input example**
 
 ```json
 {
 "email":"emrebadem@mail.com"
 "gitRepo":"https://github.com/peymil/atolye15-task"
 }
+```
+
+**Output example**
+
+```json
+{
+  "updateableDependencies": [
+    { "pkgName": "cron", "oldVersion": "1.8.1", "newVersion": "1.8.2" },
+    { "pkgName": "dayjs", "oldVersion": "1.8.7", "newVersion": "1.10.7" }
+  ]
+}
+```
+
+**Email Example**
+
+```
+cron: 1.8.1 ---> 1.8.2
+dayjs: 1.8.7 ---> 1.10.7
 ```
 
 ## Notes
