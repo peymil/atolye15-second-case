@@ -1,5 +1,7 @@
 import { Server } from 'http';
 import fetch from 'node-fetch';
+import cmp from 'semver-compare';
+import { UpdateableDependencies } from '../src/findLatestVers';
 import server from '../src/server';
 
 describe('githubNode', () => {
@@ -11,7 +13,7 @@ describe('githubNode', () => {
     await new Promise((resolve) => express.close(resolve));
   });
   it('should return updateable dependencies', async () => {
-    expect.assertions(1);
+    expect.hasAssertions();
     const result = await fetch('http://localhost:4000/dependencybot/subscribe', {
       method: 'POST',
       headers: {
@@ -20,17 +22,10 @@ describe('githubNode', () => {
       },
       body: JSON.stringify({ email: 'example@email.com', gitRepo: 'https://github.com/peymil/node-test' }),
     });
-    const resultJson = await result.text();
-    // resultJson.split('\n').forEach((str) => {
-    //   str.split(': ')[1].split(' ---> ').forEach(([old,new]) => {
-
-    //   });
-    // });
-    expect(resultJson).toMatchInlineSnapshot(`
-      "eslint: 7.9.0 ---> 8.5.0
-      lodash: 4.0.0 ---> 4.17.21
-      mongodb: 3.6.5 ---> 4.2.2
-      prettier: 1.15.3 ---> 2.5.1"
-    `);
+    const resultJson = (await result.json()) as { updateableDependencies: UpdateableDependencies };
+    for (const { newVersion, oldVersion } of resultJson.updateableDependencies) {
+      const isGreater = cmp(newVersion, oldVersion);
+      expect(isGreater).toBeGreaterThan(0);
+    }
   });
 });
