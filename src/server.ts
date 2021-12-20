@@ -46,14 +46,15 @@ export default async (port = 4000): Promise<Server> => {
       } else {
         const latestVersions = await findLatestVersions(gitProviderApi, repoName);
         const mailBody = beautifyDependencyArray(latestVersions);
+        const stringifiedUpdateables = JSON.stringify({ updateableDependencies: latestVersions });
         const cronString = generateCronStringFor24HoursLater(new Date());
         generateNewMailJob(cronString, mailBody, 'deneme', email, emailClient);
-        if (!RepoData) await RepoStore.addRepo(repoName, latestSHA, mailBody);
-        else await RepoStore.updateRepo(repoName, latestSHA, mailBody);
-        res.send(mailBody);
+        if (!RepoData) await RepoStore.addRepo(repoName, latestSHA, stringifiedUpdateables);
+        else await RepoStore.updateRepo(repoName, latestSHA, stringifiedUpdateables);
+        res.send(stringifiedUpdateables);
       }
     } catch (err) {
-      if (err instanceof Error) res.send(err.message);
+      if (err instanceof Error) res.send(JSON.stringify({ error: err.message }));
     }
   });
   const server = app.listen(port);
